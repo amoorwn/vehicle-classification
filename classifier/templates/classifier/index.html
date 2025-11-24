@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Classification</title>
+    <link rel="stylesheet" href="{% static 'classifier/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- LEFT SIDEBAR: History -->
+        <aside class="history-sidebar">
+            <h2><i class="fas fa-history"></i> Prediction History</h2>
+            <div id="history-list">
+                {% for item in recent_predictions %}
+                <div class="history-item" data-id="{{ item.id }}">
+                    <img src="{{ item.image.url }}" alt="History Image">
+                    <div class="history-info">
+                        <p class="history-class">{{ item.predicted_class }}</p>
+                        <p class="history-confidence">{{ item.confidence }}%</p>
+                        <p class="history-time">{{ item.timestamp|date:"Y-m-d H:i" }}</p>
+                    </div>
+                    <button class="delete-btn" onclick="deleteHistory({{ item.id }})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                {% empty %}
+                <p class="no-history">No predictions yet</p>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- CENTER: Main Content -->
+        <main class="main-content">
+            <h1><i class="fas fa-car"></i> Vehicle Classification</h1>
+            
+            <div id="upload-section">
+                <div id="drop-zone">
+                    <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                    <p>Drag & Drop image here</p>
+                    <p>or</p>
+                    <button id="upload-btn"><i class="fas fa-upload"></i> Upload image</button>
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div id="result-section" style="display: none;">
+                <div class="images-row">
+                    <div class="image-container">
+                        <img id="original-image" alt="Original Image">
+                        <p><i class="fas fa-image"></i> Original Image</p>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right fa-2x"></i>
+                    </div>
+                    <div class="image-container">
+                        <img id="processed-image" alt="Processed Image">
+                        <p><i class="fas fa-cog"></i> Model Input (150x150)</p>
+                    </div>
+                </div>
+                
+                <div id="prediction-result">
+                    <div class="result-card">
+                        <i class="fas fa-check-circle fa-3x"></i>
+                        <h2>Prediction Result</h2>
+                        <p class="label">Predicted Class:</p>
+                        <p class="value" id="predicted-class"></p>
+                        <p class="label">Confidence:</p>
+                        <p class="value" id="confidence"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{% static 'classifier/js/script.js' %}"></script>
+</body>
+</html>

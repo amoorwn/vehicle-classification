@@ -1,0 +1,45 @@
+🚗 Vehicle Classification Web Application
+A modern Django web application for classifying vehicle images using deep learning (VGG16 model). Upload an image and get instant predictions with confidence scores!
+
+
+🎯 Supported Vehicle Classes
+The model can classify 7 types of vehicles:
+
+🚲 Bike
+🚌 Bus
+🚗 Car
+🏍️ Motorcycle
+✈️ Plane
+🚢 Ship
+🚂 Train
+
+
+🚀 Installation & Setup
+
+Step 1: Clone the Repository
+
+git clone https://github.com/yourusername/vehicle-classification.git
+cd vehicle-classification
+
+Step 2: Create Virtual Environment
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+Step 3: Install Dependencies
+
+pip install -r requirements.txt
+
+Step 4: Setup Database
+
+python manage.py makemigrations
+python manage.py migrate
+
+Step 5: Run Development Server
+
+python manage.py runserver
